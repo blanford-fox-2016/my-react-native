@@ -71,18 +71,25 @@ class App extends Component {
 
   render() {
     const {data, actions} = this.props;
-    console.log('ini data' + data);
-    var that = this;
+    // console.log('ini data' + data);
+    // var that = this;
     return (
         <Container>
             <Header searchBar rounded>
-                <InputGroup>
+                <Title>TamvanSearchGithubRepo</Title>
+                  <InputGroup>
                     <Icon name="ios-search" />
-                    <Input placeholder="Search" value={this.state.search}  onChangeText={(text) => this.setState({search:text})} onSubmitEditing={()=>this.search()}/>
-                </InputGroup>
-                <Button transparent onPress={()=>this.search()}>Go</Button>
+                    <Input
+                      autoCapitalize = "none"
+                      placeholder="Search"
+                      value={this.state.search}
+                      onChangeText={(text) => this.setState({search:text})}
+                      onSubmitEditing={()=>this.search()}/>
+                  </InputGroup>
+                  <Button transparent onPress={()=>this.search()}>Go</Button>
             </Header>
             <Content>
+
                 {this.state.loading
                   ? <Spinner /> :
                   <List dataArray={this.props.data.items} renderRow={(item) =>
@@ -104,23 +111,25 @@ class App extends Component {
                   {!this.state.selectedItem ? <View />
                   :  <CardItem cardBody style={{justifyContent: 'flex-start'}}>
                       <Image style={styles.modalImage} source={{uri: this.state.selectedItem.owner.avatar_url}}  />
-                      <H3 style={styles.header}> {this.state.selectedItem.name}
+                      <H3 style={styles.header}> {this.state.selectedItem.full_name}
                       </H3>
-                      <Text style={styles.negativeMargin} >
-                          Type: <Text style={styles.bold}>{this.state.selectedItem.owner.type}</Text>
-                      </Text>
-                      <Text style={styles.negativeMargin} >
-                          Stars: <Text style={styles.bold}>{this.state.selectedItem.stargazers_count}</Text>
-                      </Text>
-                      <Text style={styles.negativeMargin} >
-                          Language: <Text style={styles.bold}>{this.state.selectedItem.language}</Text>
-                      </Text>
-                      <Text style={styles.negativeMargin} >
-                          Open Issues: <Text style={styles.bold}>{this.state.selectedItem.open_issues_count}</Text>
-                      </Text>
-                      <Text>
-                          Last Update: <Text style={styles.bold}>{this.state.selectedItem.updated_at.slice(0,10)}</Text>
-                      </Text>
+                      <View style={{height: 200, marginTop: 10}}>
+                        <Text style={styles.negativeMargin} >
+                            Type: <Text style={styles.bold}>{this.state.selectedItem.owner.type}</Text>
+                        </Text>
+                        <Text style={styles.negativeMargin} >
+                            Stars: <Text style={styles.bold}>{this.state.selectedItem.stargazers_count}</Text>
+                        </Text>
+                        <Text style={styles.negativeMargin} >
+                            Language: <Text style={styles.bold}>{this.state.selectedItem.language}</Text>
+                        </Text>
+                        <Text style={styles.negativeMargin} >
+                            Open Issues: <Text style={styles.bold}>{this.state.selectedItem.open_issues_count}</Text>
+                        </Text>
+                        <Text>
+                            Last Update: <Text style={styles.bold}>{this.state.selectedItem.updated_at.slice(0,10)}</Text>
+                        </Text>
+                      </View>
                       <Button danger style={{alignSelf: 'flex-end'}} onPress={() => {
                               this.setModalVisible(!this.state.modalVisible, this.state.selectedItem)
                           }}>
@@ -151,7 +160,7 @@ const styles = StyleSheet.create({
     fontWeight: '600'
   },
   negativeMargin: {
-    marginBottom: -10
+
   }
 });
 
