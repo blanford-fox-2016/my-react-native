@@ -1,0 +1,3 @@
+rootProject.name = 'SearchRepoGithub'
+
+include ':app'
