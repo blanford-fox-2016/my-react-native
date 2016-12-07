@@ -6,7 +6,6 @@
 
 import React, { Component } from 'react';
 import {
-  NavigatorIOS
   AppRegistry,
   StyleSheet,
   Text,
@@ -15,11 +14,14 @@ import {
 import store from './app/store';
 import App from './app/components/App';
 import { Provider } from 'react-redux';
+import { createStore, combineReducers } from 'redux';
+import reducers from './app/reducers';
 
 export default class PersonalMovie extends Component {
   render() {
+    const configureStore = store
     return (
-      <Provider store={store}>
+      <Provider store={configureStore}>
         <App />
       </Provider>
       // <View style={styles.container}>

@@ -3,15 +3,21 @@ import {
     View,
     Text,
     TextInput,
-    TouchableHighlight
+    TouchableHighlight,
+    StyleSheet
 } from 'react-native';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux'
 
+import { findMovie } from '../actions'
+import Movie from './Movie';
 
-export default class Main extends Component(
+export default class Main extends Component{
     constructor() {
         super()
         this.state = {
-            title: ''
+            title: '',
+            execute: false
         }
         this._handleChange = this._handleChange.bind(this);
         this._handleSubmit = this._handleSubmit.bind(this);
@@ -19,24 +25,93 @@ export default class Main extends Component(
 
     _handleChange(e) {
         this.setState({
-            username: e.nativeEvent.text
+            title: e.nativeEvent.text
         })
     }
 
     _handleSubmit(e) {
-
+      findMovie(this.state.title)
+      // this.props.navigator.push({
+      //         title: this.state.title,
+      //         component: Movie,
+      //         passProps: {
+      //           movie: movie
+      //         }
+      //       })
+      // findMovie(this.state.title)
+      // console.log(findMovie(this.state.title))
     }
 
-
     render() {
+      console.log('...', this.props.movie)
         return (
-            <View>
-                <Text>Search Your Fav Movie</Text>
-                <TextInput value={this.state.title} onChange={this._handleChange} />
-                <TouchableHighlight onPress={this._handleSubmit}>
-                    <Text> Search </Text>
+            <View style={styles.mainContainer}>
+                <Text style={styles.title} >Search Movie</Text>
+                <TextInput style={styles.searchInput} value={this.state.title} onChange={this._handleChange} />
+                <TouchableHighlight style={styles.button} onPress={this._handleSubmit}>
+                    <Text style={styles.buttonText}> Search </Text>
                 </TouchableHighlight>
             </View>
         )
     }
-)
+}
+
+
+
+var styles = StyleSheet.create({
+    mainContainer: {
+      flex: 1,
+      padding: 30,
+      marginTop: 65,
+      flexDirection: 'column',
+      justifyContent: 'center',
+      backgroundColor: '#f39c12'
+    },
+    title: {
+      marginBottom: 20,
+      fontSize: 25,
+      textAlign: 'center',
+      color: '#fff'
+    },
+    searchInput: {
+      height: 50,
+      padding: 4,
+      fontSize: 23,
+      borderWidth: 1,
+      borderColor: 'white',
+      borderRadius: 0,
+      color: 'white'
+    },
+    buttonText: {
+      fontSize: 18,
+      color: '#111',
+      alignSelf: 'center'
+    },
+    button: {
+      height: 45,
+      flexDirection: 'row',
+      backgroundColor: 'white',
+      borderColor: 'white',
+      borderWidth: 1,
+      borderRadius: 0,
+      marginBottom: 10,
+      marginTop: 10,
+      alignSelf: 'stretch',
+      justifyContent: 'center'
+    }
+
+})
+
+function mapStateToProps(state) {
+  return {
+    movie: state.movie
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    findMovie: bindActionCreators(findMovie, dispatch)
+  }
+}
+
+connect(mapStateToProps, mapDispatchToProps)(Main)

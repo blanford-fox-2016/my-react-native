@@ -1,5 +1,22 @@
-import React from 'react'
+import React, { Component } from 'react';
+import Main from './Main'
 
-const App = () => <h1> Hello from App </h1>
+import {
+  AppRegistry,
+  StyleSheet,
+  Text,
+  View,
+  NavigatorIOS
+} from 'react-native';
+
+const App = () => (
+  <NavigatorIOS
+      initialRoute={{
+        component: Main,
+        title: 'My Initial Scene',
+      }}
+      style={{flex: 1}}
+    />
+)
 
 export default App

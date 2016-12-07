@@ -1,12 +1,23 @@
-import imdb from 'imdb-api'
+// import imdb from 'imdb-api'
+// console.log(imdb)
 
-const findMovie = (title) => {
-    return {
-        type: 'FIND_MOVIE',
-        payload: imdb
-                    .get(title)
-                    .then(data => data)
-    }
+export const findMovie = (title) => {
+  return dispatch => {
+    return fetch(`http://www.omdbapi.com/?t=${title}`)
+        .then((response) => response.json())
+        .then((responseText) => {
+          console.log('response text', responseText)
+        dispatch(sendMovie(responseText));
+        })
+        .catch((error) => {
+        console.warn(error);
+        })
+  }
 }
 
-export default findMovie
+export const sendMovie = (movie) => {
+ return {
+   type: 'FIND_MOVIE',
+   payload: movie
+ }
+}
