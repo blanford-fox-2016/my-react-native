@@ -1,4 +1,4 @@
-const reducers = (state={}, action) => {
+const movie = (state={}, action) => {
     switch(action.type) {
         case 'FIND_MOVIE':
             return action.payload;
@@ -7,4 +7,4 @@ const reducers = (state={}, action) => {
     }
 }
 
-export default reducers
+export default movie

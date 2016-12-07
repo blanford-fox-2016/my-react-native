@@ -17,11 +17,18 @@ import { Provider } from 'react-redux';
 import { createStore, combineReducers } from 'redux';
 import reducers from './app/reducers';
 
+// store.subscribe(() => {
+//   console.log('this is dude', store.getState())
+// })
+//
+// store.dispatch({type: 'INC'})
+// store.dispatch({type: 'INC'})
+// store.dispatch({type: 'INC'})
+
 export default class PersonalMovie extends Component {
   render() {
-    const configureStore = store
     return (
-      <Provider store={configureStore}>
+      <Provider store={store}>
         <App />
       </Provider>
       // <View style={styles.container}>

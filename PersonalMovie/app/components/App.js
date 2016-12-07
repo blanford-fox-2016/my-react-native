@@ -13,7 +13,7 @@ const App = () => (
   <NavigatorIOS
       initialRoute={{
         component: Main,
-        title: 'My Initial Scene',
+        title: 'Search',
       }}
       style={{flex: 1}}
     />

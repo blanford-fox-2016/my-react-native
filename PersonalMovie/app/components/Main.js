@@ -12,7 +12,7 @@ import { bindActionCreators } from 'redux'
 import { findMovie } from '../actions'
 import Movie from './Movie';
 
-export default class Main extends Component{
+class Main extends Component{
     constructor() {
         super()
         this.state = {
@@ -30,14 +30,11 @@ export default class Main extends Component{
     }
 
     _handleSubmit(e) {
-      findMovie(this.state.title)
-      // this.props.navigator.push({
-      //         title: this.state.title,
-      //         component: Movie,
-      //         passProps: {
-      //           movie: movie
-      //         }
-      //       })
+      this.props.findMovie(this.state.title)
+      this.props.navigator.push({
+              title: this.state.title,
+              component: Movie,
+            })
       // findMovie(this.state.title)
       // console.log(findMovie(this.state.title))
     }
@@ -104,7 +101,7 @@ var styles = StyleSheet.create({
 
 function mapStateToProps(state) {
   return {
-    movie: state.movie
+    state
   }
 }
 
@@ -114,4 +111,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-connect(mapStateToProps, mapDispatchToProps)(Main)
+export default connect(mapStateToProps, mapDispatchToProps)(Main)
